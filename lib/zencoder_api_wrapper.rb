@@ -12,13 +12,15 @@ module ZencoderAPIWrapper
             :notifications => [
               {
                 :format => "json",
-                :url => "#{notify_url}/#{stream.id}/notify"
+                :url    => "#{notify_url}/#{stream.id}/notify"
               }
             ]
           },
           {
-            :base_url => self.hls_publish_uri(stream),
-            :filename => self.hls_filename(stream)
+            :type         => "segmented",
+            :instant_play => true,
+            :base_url     => self.hls_publish_uri(stream),
+            :filename     => self.hls_filename(stream)
           }
         ]
     })
