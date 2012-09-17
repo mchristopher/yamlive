@@ -65,8 +65,8 @@ module ZencoderAPIWrapper
 
   def self.hls_view_uri(stream)
     hls_base = Dreamlive::Application.config.live_config[:hls_out]
-    hls_name = "#{stream_name(stream)}"
-    "#{hls_base}/#{self.stream_name(stream)}.m3u8"
+    hls_name = stream_name(stream)
+    "#{hls_base}/#{hls_name}/#{hls_name}.m3u8"
   end
 
 end
