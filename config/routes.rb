@@ -1,4 +1,13 @@
 Dreamlive::Application.routes.draw do
+  devise_for :users
+
+  resources :streams
+
+  root :to => "home#index"
+  get "home/index"
+
+  post "streams/:id/notify" => 'streams#notify'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

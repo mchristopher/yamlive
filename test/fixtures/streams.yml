@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  description: MyText
+  zc_job_id: 1
+  zc_stream_name: MyString
+  zc_stream_url: MyString
+
+two:
+  name: MyString
+  description: MyText
+  zc_job_id: 1
+  zc_stream_name: MyString
+  zc_stream_url: MyString

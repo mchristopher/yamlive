@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @stream.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @stream.description %>
+</p>
+
+<% if @user_owns_stream %>
+
+<p>
+  <b>Zc job:</b>
+  <a href="https://app.zencoder.com/jobs/<%= @stream.zc_job_id %>"><%= @stream.zc_job_id %></a>
+</p>
+
+<p>
+  <b>Publish Stream Name:</b>
+  <%= @stream.zc_stream_name %>
+</p>
+
+<p>
+  <b>Publish Stream Url:</b>
+  <%= @stream.zc_stream_url %>
+</p>
+
+<% end %>
+
+<video id="live_video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="480" data-setup="{}">
+  <source src="<%= @stream_uris[:hls_out] %>" type="application/x-mpegURL" />
+  <source src="<%= @stream_uris[:rtmp_out] %>" type="application/x-rtmp" />
+</video>
+
+
+<%= link_to 'Edit', edit_stream_path(@stream) %> |
+<%= link_to 'Back', streams_path %>
