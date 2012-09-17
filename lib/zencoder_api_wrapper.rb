@@ -13,6 +13,7 @@ module ZencoderAPIWrapper
               {
                 :format => "json",
                 :url => "#{notify_url}/#{stream.id}/notify"
+              }
             ]
           },
           {
