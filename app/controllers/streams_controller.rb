@@ -21,7 +21,7 @@ class StreamsController < ApplicationController
     @stream = Stream.find(params[:id])
     @stream_uris = ZencoderAPIWrapper.stream_uris(@stream)
 
-    if current_user.id == @stream.user.id
+    if user_signed_in? && (current_user.id == @stream.user.id)
       @user_owns_stream = true
     end
 
