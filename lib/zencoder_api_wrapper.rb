@@ -15,7 +15,13 @@ module ZencoderAPIWrapper
             :type         => "segmented",
             :instant_play => true,
             :base_url     => self.hls_publish_uri(stream),
-            :filename     => self.hls_filename(stream)
+            :filename     => self.hls_filename(stream),
+            :notifications => [
+              {
+                :url => "http://www.dreamlive.tv/streams/#{stream.id}/notify",
+                :event => "first_segment_uploaded"
+              }
+            ]
           }
         ]
     })
