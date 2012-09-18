@@ -1,17 +1,41 @@
-<h2>Sign in</h2>
+<div class="row">
+  <div class="span12">
+    <h2>Sign in</h2>
+    <hr />
+  </div>
+</div>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :login %><br />
-  <%= f.email_field :login %></div>
+<div class="row">
+  <div class="span12">
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form-horizontal" }) do |f| %>
+  <div class="control-group">
+    <%= f.label :login, :class => "control-label" %>
+    <div class="controls">
+      <%= f.email_field :login %>
+    </div>
+  </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+  <div class="control-group">
+    <%= f.label :password, :class => "control-label" %>
+    <div class="controls">
+      <%= f.password_field :password %>
+    </div>
+  </div>
 
-  <div><%= f.submit "Sign in" %></div>
+  <div class="control-group">
+    <div class="controls">
+      <% if devise_mapping.rememberable? -%>
+      <label class="checkbox" for="user_remember_me">
+      <%= f.check_box :remember_me %> Remember Me
+      </label>
+      <% end -%>
+      <button type="submit" name="commit" class="btn btn-primary">Sign in</button>
+    </div>
+  </div>
 <% end %>
+
+  </div>
+</div>
 
 <%= render :partial => "devise/shared/links" %>

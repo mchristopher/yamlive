@@ -1,6 +1,19 @@
-<h1>Editing stream</h1>
+<div class="row">
+  <div class="span12">
+    <h1>Editing stream</h1>
+    <hr />
+  </div>
+</div>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="span12">
+  <%= render 'form' %>
+  </div>
+</div>
 
-<%= link_to 'Show', @stream %> |
-<%= link_to 'Back', streams_path %>
+<div class="row">
+  <div class="span12">
+    <a href="<%= url_for @stream %>" class="btn">Cancel Edit</a>
+    <a href="<%= url_for streams_path %>" class="btn">Back to Streams</a>
+  </div>
+</div>

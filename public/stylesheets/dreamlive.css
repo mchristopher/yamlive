@@ -1,0 +1,16 @@
+.info-box {
+    margin: 2px;
+    padding: 10px;
+    min-height: 195px;
+    background-color: #EEE;
+    border-style: solid 1px;
+    border-radius: 6px;
+}
+
+.info-box a {
+    color: #333;
+}
+
+.info-box a.btn {
+    color: #FFFFFF;
+}

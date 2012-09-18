@@ -1,39 +1,66 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span12">
+    <h1>Stream: <%= @stream.name %></h1>
+    <p><%= @stream.description %></p>
+    <hr />
+  </div>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @stream.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @stream.description %>
-</p>
-
-<% if @user_owns_stream %>
-
-<p>
-  <b>Zc job:</b>
-  <a href="https://app.zencoder.com/jobs/<%= @stream.zc_job_id %>"><%= @stream.zc_job_id %></a>
-</p>
-
-<p>
-  <b>Publish Stream Name:</b>
-  <%= @stream.zc_stream_name %>
-</p>
-
-<p>
-  <b>Publish Stream Url:</b>
-  <%= @stream.zc_stream_url %>
-</p>
-
+<% if notice %>
+<div class="row">
+  <div class="span12">
+    <p id="notice" class="text-info"><%= notice %></p>
+  </div>
+</div>
 <% end %>
 
-<video id="live_video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="480" data-setup="{}">
-  <source src="<%= @stream_uris[:hls_out] %>" type="application/x-mpegURL" />
-  <source src="<%= @stream_uris[:rtmp_out] %>" type="application/x-rtmp" />
-</video>
+<% if @user_owns_stream %>
+<div class="row">
+  <div class="span12">
+  <h2>This is your stream, <%= current_user.username %></h2>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h3>Stream Publishing Details</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <table class="table">
+      <tr>
+        <td><strong>Zencoder Job:</strong></td>
+        <td><%= @stream.zc_job_id %></td>
+      </tr>
+      <tr>
+        <td><strong>Publish URL:</strong></td>
+        <td><%= @stream.zc_stream_url %></td>
+      </tr>
+      <tr>
+        <td><strong>Publish Name:</strong></td>
+        <td><%= @stream.zc_stream_name %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<% end %>
 
+<% if @stream.state != "waiting" %>
+<div class="row">
+  <div class="span12">
+    <video id="live_video" class="video-js vjs-default-skin span8 offset2" controls preload="auto" height="480" data-setup="{}">
+      <source src="<%= @stream_uris[:hls_out] %>" type="application/x-mpegURL" />
+      <source src="<%= @stream_uris[:rtmp_out] %>" type="application/x-rtmp" />
+    </video>
+  </div>
+</div>
+<% end %>
 
-<%= link_to 'Edit', edit_stream_path(@stream) %> |
-<%= link_to 'Back', streams_path %>
+<div class="row">
+  <div class="span12">
+    <hr />
+    <a href="<%= url_for edit_stream_path(@stream) %>" class="btn btn-primary">Edit Stream</a>
+    <a href="<%= url_for streams_path %>" class="btn">Back to Streams</a>
+  </div>
+</div>
+

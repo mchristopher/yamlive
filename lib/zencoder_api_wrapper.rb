@@ -6,15 +6,10 @@ module ZencoderAPIWrapper
 
     response = Zencoder::Job.create({
         :live_stream => true,
+        :notifications => ["http://www.dreamlive.tv/streams/#{stream.id}/notify"],
         :outputs => [
           {
-            :url => self.rtmp_publish_uri(stream),
-            :notifications => [
-              {
-                :format => "json",
-                :url    => "#{notify_url}/#{stream.id}/notify"
-              }
-            ]
+            :url => self.rtmp_publish_uri(stream)
           },
           {
             :type         => "segmented",
@@ -25,8 +20,12 @@ module ZencoderAPIWrapper
         ]
     })
 
+    # TODO: Parse the response
     if response.success?
       response.body
+    else
+      puts response.body
+      puts response.code
     end
   end
 

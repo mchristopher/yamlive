@@ -1,31 +1,37 @@
-<h1>Listing streams</h1>
+<div class="row">
+  <div class="span12">
+    <h2>Active Streams</h2>
+  <hr />
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Zc job</th>
-    <th>Zc stream name</th>
-    <th>Zc stream url</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<%= render(:partial => "streamlist", :locals => {:streams => @active_streams}) %>
 
-<% @streams.each do |stream| %>
-  <tr>
-    <td><%= stream.name %></td>
-    <td><%= stream.description %></td>
-    <td><%= stream.zc_job_id %></td>
-    <td><%= stream.zc_stream_name %></td>
-    <td><%= stream.zc_stream_url %></td>
-    <td><%= link_to 'Show', stream %></td>
-    <td><%= link_to 'Edit', edit_stream_path(stream) %></td>
-    <td><%= link_to 'Destroy', stream, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<div class="row">
+  <div class="span12">
+    <h2>Waiting Streams</h2>
+  <hr />
+  </div>
+</div>
 
-<br />
+<%= render(:partial => "streamlist", :locals => {:streams => @waiting_streams}) %>
 
-<%= link_to 'New Stream', new_stream_path %>
+<div class="row">
+  <div class="span12">
+    <h2>Finished Streams</h2>
+  <hr />
+  </div>
+</div>
+
+<%= render(:partial => "streamlist", :locals => {:streams => @finished_streams}) %>
+
+<div class="row">
+  <div class="span12">
+    <% if user_signed_in? %>
+    <a href="<%= url_for new_stream_path %>" class="btn btn-primary">New Stream</a>
+    <% else %>
+    <a href="<%= url_for new_user_session_path %>" class="btn">Sign-In to Stream</a>
+    <% end %>
+  </div>
+</div>
+

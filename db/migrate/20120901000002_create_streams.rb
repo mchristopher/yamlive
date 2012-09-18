@@ -3,6 +3,7 @@ class CreateStreams < ActiveRecord::Migration
     create_table :streams do |t|
       t.integer :user_id, :null => false
       t.string :name, :null => false
+      t.string :state
       t.text :description
       t.integer :zc_job_id
       t.string :zc_stream_name

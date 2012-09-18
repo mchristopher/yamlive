@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="span12">
+
+  <table class="table table-striped table-bordered table-hover">
+    <tr>
+      <th>Name</th>
+      <th>User</th>
+      <th>Description</th>
+      <th class="span4"></th>
+    </tr>
+
+    <% streams.each do |stream| %>
+    <tr>
+      <td><%= stream.name %></td>
+      <td><%= stream.user.username %></td>
+      <td><%= stream.description %></td>
+      <td>
+        <a href="<%= url_for stream %>" class="btn btn-info">View Stream</a>
+        <% if user_signed_in? && current_user.id = stream.user.id %>
+        <%= link_to 'Edit', edit_stream_path(stream), :class => "btn" %>
+        <%= link_to 'Delete', stream, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger" %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
+

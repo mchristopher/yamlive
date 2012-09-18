@@ -1,6 +1,6 @@
 class StreamsController < ApplicationController
 
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index, :show, :notify]
 
   include ::ZencoderAPIWrapper
 
@@ -8,6 +8,9 @@ class StreamsController < ApplicationController
   # GET /streams.xml
   def index
     @streams = Stream.all
+    @active_streams = Stream.active
+    @waiting_streams = Stream.waiting
+    @finished_streams = Stream.finished
 
     respond_to do |format|
       format.html # index.html.erb
@@ -52,6 +55,7 @@ class StreamsController < ApplicationController
   def create
     @stream = Stream.new(params[:stream])
     @stream.user = current_user
+    @stream.state = "waiting"
 
     if @stream.save
 
@@ -103,4 +107,24 @@ class StreamsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # Stream Notifications - Received from Zencoder Dashboard
+  # POST /streams/1/notify
+  def notify
+    @stream = Stream.find(params[:id])
+    if params[:job][:state] == "processing"
+      @stream.state = "active"
+      @stream.save
+    elsif params[:job][:state] != "waiting"
+      @stream.state = "finished"
+      @stream.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to(streams_url) }
+      format.xml { head :ok }
+      format.json { head :ok }
+    end
+  end
+
 end
