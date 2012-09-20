@@ -1,12 +1,12 @@
-Zencoder.api_key = '746459150822b53c7a09fe440435bd1d'
+Zencoder.api_key = 'your_key_here'
 
 Dreamlive::Application.config.live_config = {
-  :rtmp_publish => 'rtmp://codescool.com/live',
-  :rtmp_out     => 'rtmp://codescool.com/live',
+  :rtmp_publish => 'rtmp://example.com/live',
+  :rtmp_out     => 'rtmp://example.com/live',
   :rtmp_append  => '',
-  :hls_publish  => 'ftp://testuser:testpwd@codescool.com/home/testuser/outputs',
-  :hls_out      => 'http://codescool.com/outputs',
-  :file_out     => 'ftp://testuser:testpwd@codescool.com/home/testuser/outputs',
+  :hls_publish  => 'ftp://example.com/home/testuser/outputs',
+  :hls_out      => 'http://example.com/outputs',
+  :file_out     => 'ftp://example.com/home/testuser/outputs',
   :notify_url   => 'http://dreamlive.tv/streams'
 }
 
