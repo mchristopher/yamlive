@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="span12">
+    <h1>Stream: <%= @stream.name %></h1>
+    <p><%= @stream.description %></p>
+    <hr />
+  </div>
+</div>
+
+<% if notice %>
+<div class="row">
+  <div class="span12">
+    <p id="notice" class="text-info"><%= notice %></p>
+  </div>
+</div>
+<% end %>
+
+<% if @user_owns_stream %>
+<div class="row">
+  <div class="span12">
+  <h2>This is your stream, <%= current_user.username %></h2>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <h3>Stream Publishing Details</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+  
+    <div id="flashContent">
+        <p>
+            To view this page ensure that Adobe Flash Player version 
+            11.1.0 or greater is installed. 
+        </p>
+        <script type="text/javascript"> 
+            var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
+            document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" 
+                            + pageHost + "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>" ); 
+        </script> 
+    </div>
+  </div>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="span12">
+    <hr />
+    <a href="<%= url_for edit_stream_path(@stream) %>" class="btn btn-primary">Edit Stream</a>
+    <a href="<%= url_for streams_path %>" class="btn">Back to Streams</a>
+  </div>
+</div>
+
+<script type="text/javascript">
+    // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
+    var swfVersionStr = "11.1.0";
+    // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
+    var xiSwfUrlStr = "/images/playerProductInstall.swf";
+    var flashvars = {};
+    flashvars.server = "<%= @stream.zc_stream_url %>";
+    flashvars.stream = "<%= @stream.zc_stream_name %>";
+    var params = {};
+    params.quality = "high";
+    params.bgcolor = "#ffffff";
+    params.allowscriptaccess = "sameDomain";
+    params.allowfullscreen = "true";
+    var attributes = {};
+    attributes.id = "YamLiveStreamer";
+    attributes.name = "YamLiveStreamer";
+    attributes.align = "middle";
+    swfobject.embedSWF(
+        "/images/live_streamer.swf", "flashContent", 
+        "100%", "600", 
+        swfVersionStr, xiSwfUrlStr, 
+        flashvars, params, attributes);
+    // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
+    swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+</script>
+

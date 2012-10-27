@@ -7,6 +7,7 @@ Dreamlive::Application.routes.draw do
   get "home/index"
 
   post "streams/:id/notify" => 'streams#notify'
+  get  "streams/:id/broadcast" => 'streams#broadcast'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -127,4 +127,13 @@ class StreamsController < ApplicationController
     end
   end
 
+  def broadcast
+    @stream = Stream.find(params[:id])
+    @stream_uris = ZencoderAPIWrapper.stream_uris(@stream)
+
+    if user_signed_in? && (current_user.id == @stream.user.id)
+      @user_owns_stream = true
+    end
+  end
+
 end
