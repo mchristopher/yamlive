@@ -1,4 +1,4 @@
-Zencoder.api_key = 'your_key_here'
+Zencoder.api_key = '79784bcdfd41a2e6f7af0defa88ffdbe'
 
 Dreamlive::Application.config.live_config = {
   :rtmp_publish => 'rtmp://example.com/live',
@@ -7,6 +7,6 @@ Dreamlive::Application.config.live_config = {
   :hls_publish  => 'ftp://example.com/home/testuser/outputs',
   :hls_out      => 'http://example.com/outputs',
   :file_out     => 'ftp://example.com/home/testuser/outputs',
-  :notify_url   => 'http://dreamlive.tv/streams'
+  :notify_url   => 'http://yamlive.mchristopher.com/streams'
 }
 

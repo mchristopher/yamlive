@@ -8,8 +8,16 @@ gem 'sqlite3'
 
 gem 'pg', '0.13.2'
 gem 'thin'
-gem 'devise'
+gem 'devise', '1.5.3'
 gem 'zencoder'
+
+gem 'omniauth'
+gem 'oauth2'
+gem 'omniauth-yammer'
+gem 'system_timer'
+
+
+gem 'yammer', :git => 'git://github.com/roadly/yammer.git', :ref => '0d3808327acfec1c92ff89fa46ef0178f936d582'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -31,11 +31,22 @@
       </label>
       <% end -%>
       <button type="submit" name="commit" class="btn btn-primary">Sign in</button>
+      
     </div>
   </div>
+
+  <!-- Begin federated signon -->
+  <div class="control-group">
+    <div class="controls">
+      <%= link_to image_tag('yammer_signin.png'), user_omniauth_authorize_path(:yammer) %>
+      <span id="yammer-login"></span>
+    </div>
+  </div>
+
 <% end %>
 
   </div>
 </div>
 
 <%= render :partial => "devise/shared/links" %>
+
