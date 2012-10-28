@@ -18,8 +18,12 @@
 <div class="row">
   <div class="span12">
     <video id="live_video" class="video-js vjs-default-skin span8 offset2" controls preload="auto" height="480" data-setup="{}">
-      <source src="<%= @stream_uris[:hls_out] %>" type="application/x-mpegURL" />
-      <source src="<%= @stream_uris[:rtmp_out] %>" type="application/x-rtmp" />
+      <% if @stream.state == "active" %>
+        <source src="<%= @stream_uris[:hls_out] %>" type="application/x-mpegURL" />
+        <source src="<%= @stream_uris[:rtmp_out] %>" type="application/x-rtmp" />
+      <% else %>
+        <source src="<%= @stream_uris[:http_out] %>" />
+      <% end %>
     </video>
   </div>
 </div>

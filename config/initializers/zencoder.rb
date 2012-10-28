@@ -6,7 +6,8 @@ Dreamlive::Application.config.live_config = {
   :rtmp_append  => '',
   :hls_publish  => 'http://post.bcoveliveios-i.akamaihd.net/204874/1769255312001/yamlive',
   :hls_out      => 'http://bcoveliveios-i.akamaihd.net/hls/live/204874/1769255312001/yamlive',
-  :file_out     => 's3://zencoder-video-outputs/yamlive/prod',
+  :file_publish => 's3://zencoder-video-outputs/yamlive/prod',
+  :file_out     => 'http://zencoder-video-outputs.s3.amazonaws.com/yamlive/prod',
   :notify_url   => 'http://yamlive.mchristopher.com/streams'
 }
 

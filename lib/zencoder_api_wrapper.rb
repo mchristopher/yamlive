@@ -12,6 +12,10 @@ module ZencoderAPIWrapper
             :url => self.rtmp_publish_uri(stream)
           },
           {
+            :url => self.http_publish_uri(stream),
+            :public => true
+          },
+          {
             :type         => "segmented",
             :instant_play => true,
             :base_url     => self.hls_publish_uri(stream),
@@ -35,9 +39,20 @@ module ZencoderAPIWrapper
     end
   end
 
+  def self.http_publish_uri(stream)
+    http_base = Dreamlive::Application.config.live_config[:file_publish]
+    "#{http_base}/#{stream_name(stream)}.mp4"
+  end
+
+  def self.http_view_uri(stream)
+    http_base = Dreamlive::Application.config.live_config[:file_out]
+    "#{http_base}/#{stream_name(stream)}.mp4"
+  end
+
   def self.stream_uris(stream)
     {
       :hls_out => self.hls_view_uri(stream),
+      :http_out => self.http_view_uri(stream),
       :rtmp_out => self.rtmp_view_uri(stream)
     }
   end
