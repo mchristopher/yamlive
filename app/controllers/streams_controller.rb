@@ -74,7 +74,7 @@ class StreamsController < ApplicationController
 
     respond_to do |format|
       if @stream.zc_job_id
-        format.html { redirect_to(@stream, :notice => 'Stream was successfully created.') }
+        format.html { redirect_to("/streams/#{@stream.id}/broadcast", :notice => 'Stream was successfully created.') }
       else
         format.html { render :action => "new" }
       end
@@ -121,10 +121,7 @@ class StreamsController < ApplicationController
       @stream.save!
     end
 
-    respond_to do |format|
-      format.xml { head :ok }
-      format.json { head :ok }
-    end
+    head :ok
   end
 
   def broadcast
