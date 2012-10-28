@@ -1,7 +1,7 @@
 class StreamsController < ApplicationController
 
   #before_filter :authenticate_user!, :except => [:index, :show, :notify]
-  before_filter :authenticate_user!, :except => [:notify]
+  before_filter :authenticate_user!, :except => [:notify, :show]
 
   include ::ZencoderAPIWrapper
 
@@ -23,6 +23,8 @@ class StreamsController < ApplicationController
   # GET /streams/1.xml
   def show
     @stream = Stream.find(params[:id])
+    return head :forbidden unless (current_user && current_user.stream_authorized(@stream)) || params[:_a] == @stream.auth_string
+
     @stream_uris = ZencoderAPIWrapper.stream_uris(@stream)
 
     if user_signed_in? && (current_user.id == @stream.user.id)

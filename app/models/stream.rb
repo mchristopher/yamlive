@@ -15,7 +15,19 @@ class Stream < ActiveRecord::Base
   end
 
   def yammer_message
-    "I just started broadcasting on YamLive. Check it out: http://yamlive.mchristopher.com/streams/#{id}"
+    "I just started broadcasting on YamLive. Check it out: http://yamlive.mchristopher.com/streams/#{id}?_a=#{auth_string}"
+  end
+
+  def auth_string
+    b64encode("#{OpenSSL::HMAC.digest('sha1', Dreamlive::Application.config.secret_token, "yamlive_stream_#{id}")}")
+  end
+
+  def b64encode(str)
+    Base64.encode64(str).gsub(/[\s=]+/, "").gsub("+", "-").gsub("/", "_")
+  end
+
+  def b64decode(str)
+    Base64.decode64(str.gsub("-", "+").gsub("_", "/"))
   end
 
 end

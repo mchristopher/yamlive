@@ -84,6 +84,10 @@ class User < ActiveRecord::Base
     auth_key
   end
 
+  def stream_authorized(stream)
+    groups.any? {|g| stream.group_id.to_s == g.to_s}
+  end
+
 
 protected
 
