@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
     generated_list = []
     self.networks.each do |network|
       network[:groups].each do |group|
-        generated_list << ["#{network[:name]} - #{group[:name]}", group[:id]]
+        generated_list << ["#{network[:name]} - #{group[:name]}", group[:id].to_s]
       end
     end
     generated_list
