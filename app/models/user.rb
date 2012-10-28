@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
     generated_list = []
     self.networks.each do |network|
       network[:groups].each do |group|
-        generated_list << ["#{network[:name]} - #{group[:name]}", group[:id].to_s]
+        generated_list << ["#{network[:name]} - #{group[:name]}", group[:id]]
       end
     end
     generated_list
@@ -62,8 +62,8 @@ class User < ActiveRecord::Base
       network_groups = YammerAPIWrapper.get_groups(key["token"])
       if network_groups && network_groups.count > 0
         network_groups.each do |group|
-          groups << {:id => group["id"], :name => group["full_name"] || group["name"]}
-          group_list << group["id"]
+          groups << {:id => group["id"].to_s, :name => group["full_name"] || group["name"]}
+          group_list << group["id"].to_s
         end
       end
       network_list << {:id => key["network_id"], :name => key["network_name"] || key["name"], :groups => groups}
