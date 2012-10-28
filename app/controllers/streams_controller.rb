@@ -1,6 +1,7 @@
 class StreamsController < ApplicationController
 
-  before_filter :authenticate_user!, :except => [:index, :show, :notify]
+  #before_filter :authenticate_user!, :except => [:index, :show, :notify]
+  before_filter :authenticate_user!
 
   include ::ZencoderAPIWrapper
 

@@ -9,7 +9,7 @@
   <div class="span12">
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form-horizontal" }) do |f| %>
-  <div class="control-group">
+  <!-- <div class="control-group">
     <%= f.label :login, :class => "control-label" %>
     <div class="controls">
       <%= f.email_field :login %>
@@ -33,7 +33,7 @@
       <button type="submit" name="commit" class="btn btn-primary">Sign in</button>
       
     </div>
-  </div>
+  </div> -->
 
   <!-- Begin federated signon -->
   <div class="control-group">
@@ -48,5 +48,5 @@
   </div>
 </div>
 
-<%= render :partial => "devise/shared/links" %>
+<!-- <%= render :partial => "devise/shared/links" %> -->
 

@@ -14,37 +14,6 @@
 </div>
 <% end %>
 
-<% if @user_owns_stream %>
-<div class="row">
-  <div class="span12">
-  <h2>This is your stream, <%= current_user.username %></h2>
-  </div>
-</div>
-<div class="row">
-  <div class="span12">
-    <h3>Stream Publishing Details</h3>
-  </div>
-</div>
-<div class="row">
-  <div class="span12">
-    <table class="table">
-      <tr>
-        <td><strong>Zencoder Job:</strong></td>
-        <td><%= @stream.zc_job_id %></td>
-      </tr>
-      <tr>
-        <td><strong>Publish URL:</strong></td>
-        <td><%= @stream.zc_stream_url %></td>
-      </tr>
-      <tr>
-        <td><strong>Publish Name:</strong></td>
-        <td><%= @stream.zc_stream_name %></td>
-      </tr>
-    </table>
-  </div>
-</div>
-<% end %>
-
 <% if @stream.state != "waiting" %>
 <div class="row">
   <div class="span12">
@@ -56,10 +25,11 @@
 </div>
 <% end %>
 
+
 <div class="row">
   <div class="span12">
     <hr />
-    <a href="<%= url_for edit_stream_path(@stream) %>" class="btn btn-primary">Edit Stream</a>
+    <% if @user_owns_stream %><a href="<%= url_for edit_stream_path(@stream) %>" class="btn btn-primary">Edit Stream</a><% end %>
     <a href="<%= url_for streams_path %>" class="btn">Back to Streams</a>
   </div>
 </div>

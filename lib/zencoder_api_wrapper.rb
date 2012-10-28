@@ -6,7 +6,7 @@ module ZencoderAPIWrapper
 
     response = Zencoder::Job.create({
         :live_stream => true,
-        :notifications => ["http://www.dreamlive.tv/streams/#{stream.id}/notify"],
+        :notifications => ["#{Dreamlive::Application.config.live_config[:notify_url]}/#{stream.id}/notify"],
         :outputs => [
           {
             :url => self.rtmp_publish_uri(stream)
@@ -18,7 +18,7 @@ module ZencoderAPIWrapper
             :filename     => self.hls_filename(stream),
             :notifications => [
               {
-                :url => "http://www.dreamlive.tv/streams/#{stream.id}/notify",
+                :url => "#{Dreamlive::Application.config.live_config[:notify_url]}/#{stream.id}/notify",
                 :event => "first_segment_uploaded"
               }
             ]
@@ -43,7 +43,7 @@ module ZencoderAPIWrapper
   end
 
   def self.stream_name(stream)
-    "#{stream.user.username}_#{stream.name}_#{stream.id}"
+    "#{stream.user.id}_#{stream.id}_#{stream.url_slug}"
   end
 
   def self.rtmp_publish_uri(stream)

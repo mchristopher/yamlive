@@ -210,4 +210,8 @@ Devise.setup do |config|
   require "omniauth-yammer"
   config.omniauth :yammer, "OuNI4TJV66HFX2QTbeOhA", "F0Tpp1LMQmhywHHyLPuKZsz5yXUVPOta0a7Zt8Sg5I"
 
+  config.warden do |manager|
+    manager.failure_app = CustomAuthenticationFailure
+  end
+
 end
