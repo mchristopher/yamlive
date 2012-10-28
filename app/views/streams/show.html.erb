@@ -29,6 +29,11 @@
 </div>
 <% end %>
 
+<div class="row">
+  <div class="span12">
+    <div id="embedded-feed"></div>
+  </div>
+</div>
 
 <div class="row">
   <div class="span12">
@@ -37,4 +42,13 @@
     <a href="<%= url_for streams_path %>" class="btn">Back to Streams</a>
   </div>
 </div>
+
+<script type="text/javascript">
+  yam.connect.embedFeed({
+    container: '#embedded-feed',
+    network: '<%= @stream.network_permaname %>',
+    feedType: 'group',
+    feedId: '<%= @stream.group_id %>'
+  });
+</script>
 

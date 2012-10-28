@@ -21,7 +21,6 @@ module YammerAPIWrapper
 protected
 
   def self.parse_result(result)
-    puts result.inspect
     return false unless result && result.env[:status] == 200
     JSON.load(result.body) rescue false
   end

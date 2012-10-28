@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
           group_list << group["id"].to_s
         end
       end
-      network_list << {:id => key["network_id"], :name => key["network_name"] || key["name"], :groups => groups}
+      network_list << {:id => key["network_id"], :name => key["network_name"] || key["name"], :groups => groups, :permalink => key["network_permalink"]}
     end
     network_list
     self.networks = network_list
@@ -86,6 +86,15 @@ class User < ActiveRecord::Base
 
   def stream_authorized(stream)
     groups.any? {|g| stream.group_id.to_s == g.to_s}
+  end
+
+  def get_network_permaname_for_group(group_id)
+    networks.each do |network|
+      network[:groups].each do |group|
+        return network[:permalink] if group[:id] == group_id.to_s
+      end
+    end
+    nil
   end
 
 

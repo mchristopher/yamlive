@@ -59,6 +59,7 @@ class StreamsController < ApplicationController
     @stream = Stream.new(params[:stream])
     @stream.user = current_user
     @stream.state = "waiting"
+    @stream.network_permaname = current_user.get_network_permaname_for_group(@stream.group_id)
 
     if @stream.save
 
