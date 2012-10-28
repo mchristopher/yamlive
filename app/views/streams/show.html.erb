@@ -22,7 +22,7 @@
         <source src="<%= @stream_uris[:hls_out] %>" type="application/x-mpegURL" />
         <source src="<%= @stream_uris[:rtmp_out] %>" type="application/x-rtmp" />
       <% else %>
-        <source src="<%= @stream_uris[:http_out] %>" />
+        <source src="<%= @stream_uris[:http_out] %>" type="video/mp4" />
       <% end %>
     </video>
   </div>
