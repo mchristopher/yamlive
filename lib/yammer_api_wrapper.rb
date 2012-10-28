@@ -14,9 +14,14 @@ module YammerAPIWrapper
     call :get, "oauth/tokens.json", access_key
   end
 
+  def self.post_message(access_key, group_id, message)
+    call :post, "messages.json", access_key, :body => message, :group_id => group_id
+  end
+
 protected
 
   def self.parse_result(result)
+    puts result.inspect
     return false unless result && result.env[:status] == 200
     JSON.load(result.body) rescue false
   end

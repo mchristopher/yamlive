@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
       network_groups = YammerAPIWrapper.get_groups(key["token"])
       if network_groups && network_groups.count > 0
         network_groups.each do |group|
-          groups << {:id => group["id"].to_s, :name => group["full_name"] || group["name"]}
+          groups << {:id => group["id"].to_s, :name => group["full_name"] || group["name"], :token => key["token"]}
           group_list << group["id"].to_s
         end
       end
@@ -73,6 +73,15 @@ class User < ActiveRecord::Base
     self.groups = group_list.uniq
     self.info_last_updated_at = Time.now
     self.save!
+  end
+
+  def get_auth_for_group(group_id)
+    networks.each do |network|
+      network[:groups].each do |group|
+        return group[:token] if group[:id] == group_id
+      end
+    end
+    auth_key
   end
 
 

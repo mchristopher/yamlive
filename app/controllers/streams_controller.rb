@@ -67,6 +67,7 @@ class StreamsController < ApplicationController
         @stream.zc_stream_name = zc_stream['stream_name']
         @stream.zc_stream_url = zc_stream['stream_url']
         @stream.save
+        @stream.post_yammer_update(current_user) if params[:postmessage] == "1"
       else
         @stream.delete
       end
