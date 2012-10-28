@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   # Virtual attribute login to support authentication via username or email
   attr_accessor :login
 
+  serialize :networks
+  serialize :groups
+
   has_many :streams
 
   # Override to support authenticating via username or email
@@ -23,7 +26,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.find_for_provider_oauth(auth, signed_in_resource=nil)
+  def self.find_for_yammer_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider.to_s, :uid => auth.uid.to_s).first
     unless user
       user = User.create(:name => auth.extra.raw_info.name,
@@ -34,7 +37,53 @@ class User < ActiveRecord::Base
                            :password => Devise.friendly_token[0,20]
                         )
     end
+    user.auth_key = auth.credentials.token
+    user.update_networks unless (user.info_last_updated_at && user.info_last_updated_at > 30.minutes.ago)
     user
+  end
+
+  def generate_group_list
+    generated_list = []
+    self.networks.each do |network|
+      network[:groups].each do |group|
+        generated_list << ["#{network[:name]} - #{group[:name]}", group[:id]]
+      end
+    end
+    generated_list
+  end
+
+  def update_networks
+    network_list = []
+    group_list = []
+    oauth_keys = YammerAPIWrapper.get_oauth_keys(auth_key)
+    return unless oauth_keys
+    oauth_keys.each do |key|
+      groups = []
+      network_groups = YammerAPIWrapper.get_groups(key["token"])
+      if network_groups && network_groups.count > 0
+        network_groups.each do |group|
+          groups << {:id => group["id"], :name => group["full_name"] || group["name"]}
+          group_list << group["id"]
+        end
+      end
+      network_list << {:id => key["network_id"], :name => key["network_name"] || key["name"], :groups => groups}
+    end
+    network_list
+    self.networks = network_list
+    self.groups = group_list.uniq
+    self.info_last_updated_at = Time.now
+    self.save!
+  end
+
+
+protected
+
+  def yammer
+    @yammer ||= Yammer.new(
+      :consumer_key => "OuNI4TJV66HFX2QTbeOhA",
+      :consumer_secret => "F0Tpp1LMQmhywHHyLPuKZsz5yXUVPOta0a7Zt8Sg5I",
+      :oauth_token => auth_key
+    )
   end
 
 end

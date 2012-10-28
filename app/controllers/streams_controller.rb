@@ -8,10 +8,10 @@ class StreamsController < ApplicationController
   # GET /streams
   # GET /streams.xml
   def index
-    @streams = Stream.all
-    @active_streams = Stream.active
-    @waiting_streams = Stream.waiting
-    @finished_streams = Stream.finished
+    @streams = Stream.where("group_id IN (?)", current_user.groups)
+    @active_streams = @streams.active
+    @waiting_streams = @streams.waiting
+    @finished_streams = @streams.finished
 
     respond_to do |format|
       format.html # index.html.erb
