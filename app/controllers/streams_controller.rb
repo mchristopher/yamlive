@@ -1,7 +1,7 @@
 class StreamsController < ApplicationController
 
   #before_filter :authenticate_user!, :except => [:index, :show, :notify]
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:notify]
 
   include ::ZencoderAPIWrapper
 
@@ -115,14 +115,13 @@ class StreamsController < ApplicationController
     @stream = Stream.find(params[:id])
     if params[:job][:state] == "processing"
       @stream.state = "active"
-      @stream.save
+      @stream.save!
     elsif params[:job][:state] != "waiting"
       @stream.state = "finished"
-      @stream.save
+      @stream.save!
     end
 
     respond_to do |format|
-      format.html { redirect_to(streams_url) }
       format.xml { head :ok }
       format.json { head :ok }
     end
