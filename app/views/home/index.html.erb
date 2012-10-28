@@ -1,23 +1,28 @@
 <div class="hero-unit">
   <h1>YamLive</h1>
-  <p>A simple demonstration application of Live Video Streaming using the Zencoder API</p>
+  <p>A one-to-many live streaming service. Broadcast yourself to the world so they can bask in your glory!</p>
 </div>
 <div class="row">
   <div class="span4">
     <div class="info-box">
-      <a href="https://github.com/zencoder/dreamlive"><h2>Get The Code</h2><p>The source code for this demonstation site is freely available under an MIT license. This site is written in Ruby and Rails, and uses the Zencoder RubyGem. Feel free to use it however you like.</p></a>
-      <p><a href="https://github.com/zencoder/dreamlive" class="btn btn-primary">View on Github &gt;&gt;</a></p>
+      <a href="https://www.yammer.com/signup"><h2>Get on Yammer</h2></a>
+      <p>
+        YamLive uses Yammer for communication with your colleagues during a live stream, so make sure you've registered before you begin!
+      </p>
+      <p><a href="https://www.yammer.com/signup" class="btn btn-primary">Register &gt;&gt;</a></p>
     </div>
   </div>
   <div class="span4">
     <div class="info-box">
-      <a href="/users/sign_up"><h2>Register To Stream</h2><p>Register an account on DreamLive, to be able to create and publish your own live streams. All streams are publicly available on the DreamLive streams listing.</p></a>
-      <p><a href="/users/sign_up" class="btn btn-primary">Sign Up &gt;&gt;</a></p>
+      <a href="/users/sign_up"><h2>Stream</h2></a>
+      <p>Login using your Yammer account to start streaming. Each stream can only be viewed by the group that you select, so rest assured that your content will remain private.</p>
+      <p><%= link_to('Login &gt;&gt;'.html_safe, user_omniauth_authorize_path(:yammer), :class => 'btn btn-primary') %></p>
     </div>
   </div>
   <div class="span4">
     <div class="info-box">
-      <a href="/streams"><h2>Watch Streams</h2><p>Browse live streams, and also view saved versions of previous streams. All streams from all users are available to watch.</p></a>
+      <a href="/streams"><h2>Watch Streams</h2></a>
+      <p>Browse live streams, and also view saved versions of previous streams. You can only see things from others in your groups.</p>
       <p><a href="/streams" class="btn btn-primary">Watch Streams &gt;&gt;</a></p>
     </div>
   </div>
